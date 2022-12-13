@@ -95,7 +95,7 @@
             background-color: #fff;
             font-size: 15px;
             font-weight: 300;
-            color: #8D8D8D;
+            color: #000;
             -webkit-transition: all 0.3s ease;
             transition: all 0.3s ease;
             margin-top: 16px;
@@ -126,7 +126,7 @@
             border: 0;
             font-size: 15px;
             font-weight: 300;
-            color: #8D8D8D;
+            color: #000;
             outline: none;
             resize: none;
             height: 120px;
@@ -138,7 +138,7 @@
         .form-content textarea:hover, .form-content textarea:focus {
             border: 0;
             background-color: #ebeff8;
-            color: #8D8D8D;
+            color: #000;
         }
 
         .mv-up{
@@ -163,8 +163,8 @@
                     <div class="form-items">
                         <h3>Dự đoán giá nhà đất tại TP. Đà Nẵng</h3>
                         <p>Nhập thông tin nhà đất vào form dưới đây.</p>
-                        <form class="requires-validation" novalidate>
-
+                        <form class="requires-validation" method="post" action="{% url "DuDoan:ketqua" %}" novalidate>
+                            {% csrf_token %}
                             <div class="col-md-12">
                                 <label class="mb-3 mr-1" for="road">Tên đường: </label>
                                <input class="form-control" type="text" name="road" placeholder="Tên đường" required>
@@ -176,52 +176,51 @@
                             </div>
 
                             <div class="col-md-12">
-                                <label class="mb-3 mr-1" for="type">Chiều dài: </label>
-                                <input class="form-control" type="number" name="type" placeholder="Chiều dài" required>
+                                <label class="mb-3 mr-1" for="width">Chiều dài: </label>
+                                <input class="form-control" type="number" name="width" placeholder="Chiều dài" required>
                             </div>
 
                             <div class="col-md-12">
-                                <label class="mb-3 mr-1" for="type">Chiều rộng: </label>
-                                <input class="form-control" type="email" name="type" placeholder="Chiều rộng" required>
+                                <label class="mb-3 mr-1" for="length">Chiều rộng: </label>
+                                <input class="form-control" type="number" name="length" placeholder="Chiều rộng" required>
                             </div>
 
                             <div class="col-md-12">
-                                <label class="mb-3 mr-1" for="type">Diện tích sử dụng: </label>
-                                <input class="form-control" type="email" name="type" placeholder="Diện tích sử dụng" required>
+                                <label class="mb-3 mr-1" for="area">Diện tích sử dụng: </label>
+                                <input class="form-control" type="number" name="area" placeholder="Diện tích sử dụng" required>
                             </div>
 
                             <div class="col-md-12">
-                                <label class="mb-3 mr-1" for="type">Số lượng phòng ngủ: </label>
-                                <input class="form-control" type="email" name="type" placeholder="Số lượng phòng ngủ" required>
+                                <label class="mb-3 mr-1" for="bedroom">Số lượng phòng ngủ: </label>
+                                <input class="form-control" type="number" name="bedroom" placeholder="Số lượng phòng ngủ" required>
                             </div>
 
                             <div class="col-md-12">
-                                <label class="mb-3 mr-1" for="type">Số tầng: </label>
-                                <input class="form-control" type="email" name="type" placeholder="Số tầng" required>
+                                <label class="mb-3 mr-1" for="floor">Số tầng: </label>
+                                <input class="form-control" type="number" name="floor" placeholder="Số tầng" required>
                             </div>
 
                             <div class="col-md-12">
-                                <label class="mb-3 mr-1" for="type">Hướng: </label>
-                                <input class="form-control" type="email" name="type" placeholder="Hướng" required>
-                            </div>
-
-                            <div class="col-md-12">
-                                <label class="mb-3 mr-1" for="type">Giấy tờ: </label>
-                                <input class="form-control" type="email" name="type" placeholder="Giấy tờ" required>
-                            </div>
-
-                           <div class="col-md-12">
-                                <select class="form-select mt-3" required>
-                                      <option selected disabled value="">Position</option>
-                                      <option value="jweb">Junior Web Developer</option>
-                                      <option value="
-
-                                      sweb">Senior Web Developer</option>
-                                      <option value="pmanager">Project Manager</option>
+                                <label class="mb-3 mr-1" for="direct">Hướng: </label>
+                                <select class="form-select mt-3" name="direct" required>
+                                      <option selected disabled value="Nam">Nam</option>
+                                      <option value="Bắc">Bắc</option>
+                                      <option value="Tây">Tây</option>
+                                      <option value="Đông">Đông</option>
+                                      <option value="Tây Nam">Tây Nam</option>
+                                      <option value="Tây Bắc">Tây Bắc</option>
+                                      <option value="Đông Nam">Đông Nam</option>
+                                      <option value="Đông Bắc">Đông Bắc</option>
                                </select>
-                           </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label class="mb-3 mr-1" for="paper">Giấy tờ: </label>
+                                <input class="form-control" type="text" name="paper" placeholder="Giấy tờ" required>
+                            </div>
+
                             <div class="form-button mt-3">
-                                <button id="submit" type="submit" class="btn btn-primary">Register</button>
+                                <button id="submit" type="submit" class="btn btn-primary">Dự đoán</button>
                             </div>
                         </form>
                     </div>
