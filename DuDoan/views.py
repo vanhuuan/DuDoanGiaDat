@@ -29,27 +29,47 @@ def ketqua(request):
     bedroom = request.POST['bedroom']
     floor = request.POST['floor']
     direct = request.POST['direct']
+    paper = request.POST['paper']
+    district = request.POST['district']
     print(road, type, width, length, area, bedroom, floor, direct)
     newRc = {
-        'Road': road,
         'Type Of Estate': type,
+        'Legal': paper,
         'Square': area,
         'Width': width,
         'Length': length,
         'Floors': floor,
         'Bedrooms': bedroom,
-        'Direction': direct
+        'Direction': direct,
+        'Road': road,
     }
     df = pd.read_csv('dataclean.csv')
     df = df[['Road','Type Of Estate','Square','Width','Length','Floors','Bedrooms','Direction']]
     df = fixOutlier(df)
     df = df.append(newRc, ignore_index=True)
+    df = ChuanHoa(df)
     df['Type Of Estate'] = le.fit_transform(df['Type Of Estate'])
     df['Direction'] = le.fit_transform(df['Direction'])
-    df = ChuanHoa(df)
-    # predicted = model.predict(df.iloc[-1])
-    # print(predicted)
-    return render(request, 'ketqua.html', {'price': 1000000})
+    df['Legal'] = le.fit_transform(df['Legal'])
+    last = df[0:1]
+    last['Legal'] = int(last['Legal'])
+    last['District_Huyện Hòa Vang'] = int(0)
+    last['District_Quận Cẩm Lệ'] = int(0)
+    last['District_Quận Hải Châu'] = int(0)
+    last['District_Quận Liên Chiểu'] = int(0)
+    last['District_Quận Ngũ Hành Sơn'] = int(0)
+    last['District_Quận Sơn Trà'] = int(0)
+    last['District_Quận Thanh Khê'] = int(0)
+    match district:
+        case 'Huyện Hòa Vang': last['District_Huyện Hòa Vang'] = int(1)
+        case 'Quận Cẩm Lệ': last['District_Quận Cẩm Lệ'] = int(1)
+        case 'Quận Hải Châu': last['District_Quận Hải Châu'] = int(1)
+        case 'Quận Liên Chiểu': last['District_Quận Liên Chiểu'] = int(1)
+        case 'Quận Ngũ Hành Sơn': last['District_Quận Ngũ Hành Sơn'] = int(1)
+        case 'Quận Sơn Trà': last['Quận Sơn Trà'] = int(1)
+        case 'Quận Thanh Khê': last['District_Quận Thanh Khê'] = int(1)
+    predicted = model.predict(last)
+    return render(request, 'ketqua.html', {'price': predicted[0]})
 
 
 def fixOutlier(train_df):
