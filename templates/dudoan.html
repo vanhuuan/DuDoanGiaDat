@@ -2,7 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>DuDoanGiaDat</title>
+    <title>Dự đoán</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"
+            integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css" integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q==" crossorigin="anonymous"
+  referrerpolicy="no-referrer" />
+    <!-- Include Twitter Bootstrap and jQuery: -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
 
@@ -166,13 +178,24 @@
                         <form class="requires-validation" method="post" action="{% url "DuDoan:ketqua" %}" novalidate>
                             {% csrf_token %}
                             <div class="col-md-12">
-                                <label class="mb-3 mr-1" for="road">Tên đường: </label>
-                               <input class="form-control" type="text" name="road" placeholder="Tên đường" required>
+                                <label class="mb-3 mr-1" for="road">Độ rộng đường: </label>
+                                <input class="form-control" type="number" name="road" placeholder="Động rộng đường" required>
                             </div>
 
                             <div class="col-md-12">
                                 <label class="mb-3 mr-1" for="type">Loại bất động sản: </label>
-                                <input class="form-control" type="email" name="type" placeholder="Loại bất động sản" required>
+                                <select class="form-select mt-3" name="type" required>
+                                      <option selected value="Nhà trong hẻm">Nhà trong hẻm</option>
+                                      <option value="Đất thổ cư, đất ở">Đất thổ cư, đất ở</option>
+                                      <option value="Nhà mặt tiền">Nhà mặt tiền</option>
+                                      <option value="Đất nền, liền kề, đất dự án">Đất nền, liền kề, đất dự án</option>
+                                      <option value="Nhà hàng, khách sạn">Nhà hàng, khách sạn</option>
+                                      <option value="Biệt thự, nhà liền kề">Biệt thự, nhà liền kề</option>
+                                      <option value="Căn hộ chung cư">Căn hộ chung cư</option>
+                                      <option value="Mặt bằng">Mặt bằng</option>
+                                      <option value="Phòng trọ, nhà trọ">Phòng trọ, nhà trọ</option>
+                                      <option value="Shop, kiot, quán">Shop, kiot, quán</option>
+                               </select>
                             </div>
 
                             <div class="col-md-12">
@@ -203,7 +226,7 @@
                             <div class="col-md-12">
                                 <label class="mb-3 mr-1" for="direct">Hướng: </label>
                                 <select class="form-select mt-3" name="direct" required>
-                                      <option selected disabled value="Nam">Nam</option>
+                                      <option selected value="Nam">Nam</option>
                                       <option value="Bắc">Bắc</option>
                                       <option value="Tây">Tây</option>
                                       <option value="Đông">Đông</option>
@@ -212,11 +235,6 @@
                                       <option value="Đông Nam">Đông Nam</option>
                                       <option value="Đông Bắc">Đông Bắc</option>
                                </select>
-                            </div>
-
-                            <div class="col-md-12">
-                                <label class="mb-3 mr-1" for="paper">Giấy tờ: </label>
-                                <input class="form-control" type="text" name="paper" placeholder="Giấy tờ" required>
                             </div>
 
                             <div class="form-button mt-3">
