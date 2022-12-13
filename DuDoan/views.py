@@ -9,6 +9,7 @@ import numpy as np
 import math
 from sklearn import preprocessing
 import pandas as pd
+import locale
 
 le = preprocessing.LabelEncoder()
 
@@ -69,7 +70,9 @@ def ketqua(request):
         case 'Quận Sơn Trà': last['Quận Sơn Trà'] = int(1)
         case 'Quận Thanh Khê': last['District_Quận Thanh Khê'] = int(1)
     predicted = model.predict(last)
-    return render(request, 'ketqua.html', {'price': predicted[0]})
+    locale.setlocale(locale.LC_ALL, 'vi_VN.UTF-8')
+    
+    return render(request, 'ketqua.html', {'price': locale.currency(float(predicted[0]), grouping=True)})
 
 
 def fixOutlier(train_df):
