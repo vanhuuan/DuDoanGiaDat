@@ -71,7 +71,7 @@ def ketqua(request):
     predicted = model.predict(last)
     locale.setlocale(locale.LC_ALL, 'vi_VN.UTF-8')
     predicted = np.expm1(predicted[0])
-    return render(request, 'ketqua.html', {'price': locale.currency(float((predicted[0]) * 1000000000), grouping=True)})
+    return render(request, 'ketqua.html', {'price': locale.currency(float((predicted[0])), grouping=True)})
 
 
 def fixOutlier(train_df):
