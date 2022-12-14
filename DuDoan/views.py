@@ -45,15 +45,14 @@ def ketqua(request):
         'Road': road,
     }
     df = pd.read_csv('dataclean.csv')
-    df = df[['Road','Type Of Estate','Square','Width','Length','Floors','Bedrooms','Direction']]
+    df = df[['Type Of Estate','Legal','Square','Width','Length','Floors','Bedrooms','Direction','Road']]
     df = fixOutlier(df)
     df = df.append(newRc, ignore_index=True)
     df = ChuanHoa(df)
     df['Type Of Estate'] = le.fit_transform(df['Type Of Estate'])
     df['Direction'] = le.fit_transform(df['Direction'])
     df['Legal'] = le.fit_transform(df['Legal'])
-    last = df[0:1]
-    last['Legal'] = int(last['Legal'])
+    last = df[-1:]
     last['District_Huyện Hòa Vang'] = int(0)
     last['District_Quận Cẩm Lệ'] = int(0)
     last['District_Quận Hải Châu'] = int(0)
@@ -72,7 +71,7 @@ def ketqua(request):
     predicted = model.predict(last)
     locale.setlocale(locale.LC_ALL, 'vi_VN.UTF-8')
     
-    return render(request, 'ketqua.html', {'price': locale.currency(float(predicted[0]), grouping=True)})
+    return render(request, 'ketqua.html', {'price': locale.currency(float((predicted[0]-20) * 1000000000), grouping=True)})
 
 
 def fixOutlier(train_df):
