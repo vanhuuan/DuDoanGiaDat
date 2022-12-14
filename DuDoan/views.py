@@ -70,8 +70,8 @@ def ketqua(request):
         case 'Quận Thanh Khê': last['District_Quận Thanh Khê'] = int(1)
     predicted = model.predict(last)
     locale.setlocale(locale.LC_ALL, 'vi_VN.UTF-8')
-    
-    return render(request, 'ketqua.html', {'price': locale.currency(float((predicted[0]-20) * 1000000000), grouping=True)})
+    predicted = np.expm1(predicted[0])
+    return render(request, 'ketqua.html', {'price': locale.currency(float((predicted[0]) * 1000000000), grouping=True)})
 
 
 def fixOutlier(train_df):
